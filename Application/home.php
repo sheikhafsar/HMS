@@ -17,9 +17,11 @@ session_start();
 ?>
 
 <a href="dept.php">Departments</a>
-<!--
-<a href="register.php">Register User</a>
+
+
+<a href="doctor.php">Doctor</a>
 </br>
+<!--
 <a href="viewUser.php">Veiw User</a>
 </br>
 -->
