@@ -3,7 +3,7 @@
 
 $DB_host = "localhost";
 $DB_user = "afsar";
-$DB_pass = "afsar";
+$DB_pass = "afsar123";
 $DB_name = "hms";
 
  try
