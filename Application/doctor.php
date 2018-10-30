@@ -5,23 +5,24 @@
         require_once 'Connect.php';
 
         echo "Doctor";
-/*
+
    if (isset($_POST["delete"])){
        //echo "hi";
-       $dept=$_POST["dept"];
+       $docs=$_POST["docs"];
        
-       $count= count($dept);
-       //echo $count;
+       $count= count($docs);
+       echo $count;
        
        for ($x = 0; $x < $count; $x++) {
-        $stmt = $DBcon->prepare("delete from department where dept_id=:id");
-      
-        $stmt->bindparam(':id', $dept[$x]);
+        $stmt = $DBcon->prepare("delete from staff where staff_id=:id");
+        echo $docs[$x];
+        echo "</br>";
+        $stmt->bindparam(':id', $docs[$x]);
         $stmt->execute();
     } 
        
    }
-   */
+  
   if (isset($_POST["insert"])){
        header("location:insert_doc.php");
       //echo "Hello";
@@ -75,7 +76,7 @@
         echo "<tr>";
         
             echo  "<td>";
-        echo "<input type=checkbox  name=dept[] value=$row[dr_id] />";
+        echo "<input type=checkbox  name=docs[] value=$row[dr_id] />";
         echo $row["dr_id"];
         echo " ";
             echo  "</td>";
