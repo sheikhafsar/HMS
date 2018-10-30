@@ -17,14 +17,17 @@ session_start();
 ?>
 
 <a href="dept.php">Departments</a>
-
+</br>
 
 <a href="doctor.php">Doctor</a>
 </br>
-<!--
-<a href="viewUser.php">Veiw User</a>
+
+<a href="nurse.php">Nurse</a>
 </br>
--->
+
+<a href="receptionist.php">Receptionist</a>
+</br>
+
 <a href="logout.php">Logout</a>
 </br>
 
