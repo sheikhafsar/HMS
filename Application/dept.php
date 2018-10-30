@@ -39,8 +39,6 @@
     $stmt = $DBcon->prepare("select * from department");
     $stmt->execute();
     
-   // echo count($stmt);
-    
    // $count=$stmt->rowCount(); //total count of users
     
     //echo $count;
