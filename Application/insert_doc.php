@@ -19,11 +19,11 @@
                 $error = "Doctor already exists";
             }
             else {
-                echo "pre insertion";
+            /*   
                 echo "</br>";
                 echo "$_POST[ID] $_POST[phone] $_POST[emailID] $_POST[shift]";
                 echo "</br>";
-                
+             */   
             $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
                     . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
             $stmt->bindparam(':id', $_POST["ID"], PDO::PARAM_STR);
@@ -43,10 +43,22 @@
             $stmt->bindparam(':pwd', $_POST["pwd"], PDO::PARAM_STR);
 
             $stmt->execute();
+           /* 
+            echo "</br>";
+            echo "$_POST[ID] $_POST[dr_type] $_POST[dept]";
+            echo "</br>";
+           */ 
+            $stmt1 = $DBcon->prepare("insert into doctor(dr_id,dr_type,dept_id) VALUES(:dr_id,:dr_type,:dept)");
+           
+            $stmt1->bindparam(':dr_id', $_POST["ID"],PDO::PARAM_STR);
+            $stmt1->bindparam(':dr_type', $_POST["dr_type"],PDO::PARAM_STR);
+            $stmt1->bindparam(':dept', $_POST["dept"],PDO::PARAM_STR);
+ 
+            $stmt1->execute();
             
             echo "success insertion";
             
-            // header("location:doctor.php");
+             header("location:doctor.php");
             }
         }
 ?>
@@ -66,6 +78,9 @@
                 <br/>
                 
                 Designation : <input type="text" name="designation"/>
+                <br/>
+                
+                Doctor Type : <input type="text" name="dr_type"/>
                 <br/>
                 
                 Salary : <input type="number" name="salary"/>
@@ -92,7 +107,7 @@
                      $stmt->execute();
                      foreach ($stmt->fetchAll() as $row) {
                     ?>                                       
-                     <option value=$row["dept_id"]> <?php echo "$row[dept_name]"?> </option>
+                     <option value=<?php echo $row["dept_id"]?> > <?php echo "$row[dept_name]"?> </option>
                     <?php
                     }
                     ?>
