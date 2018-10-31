@@ -8,9 +8,11 @@
             //echo  json_encode($_POST);
      
                //check if user exist
-     
+            
+            $docID="DOC".$_POST["ID"];
+            
             $stmt = $DBcon->prepare("select * from staff where staff_id=:ID");
-             $stmt->bindParam(':ID',$_POST["ID"], PDO::PARAM_STR);
+             $stmt->bindParam(':ID',$docID, PDO::PARAM_STR);
              
             $stmt->execute();
             
@@ -26,7 +28,7 @@
              */   
             $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
                     . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
-            $stmt->bindparam(':id', $_POST["ID"], PDO::PARAM_STR);
+            $stmt->bindparam(':id', $docID, PDO::PARAM_STR);
          
             $stmt->bindparam(':fnm', $_POST["fnm"], PDO::PARAM_STR);
             $stmt->bindparam(':lnm', $_POST["lnm"], PDO::PARAM_STR);
@@ -50,7 +52,7 @@
            */ 
             $stmt1 = $DBcon->prepare("insert into doctor(dr_id,dr_type,dept_id) VALUES(:dr_id,:dr_type,:dept)");
            
-            $stmt1->bindparam(':dr_id', $_POST["ID"],PDO::PARAM_STR);
+            $stmt1->bindparam(':dr_id', $docID,PDO::PARAM_STR);
             $stmt1->bindparam(':dr_type', $_POST["dr_type"],PDO::PARAM_STR);
             $stmt1->bindparam(':dept', $_POST["dept"],PDO::PARAM_STR);
  
@@ -62,7 +64,7 @@
             
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
             
-            $target_file = $target_dir . $_POST["ID"] . ".jpg";
+            $target_file = $target_dir . $docID . ".jpg";
             $uploadOk = 1;
             
 
@@ -114,7 +116,7 @@
 
 <form  name="frm1" action="" method="POST" enctype="multipart/form-data">
     
-                ID : <input type="text" name="ID"/>
+                ID  DOC: <input type="text" name="ID"/>
                 <br/>
                 First Name : <input type="text" name="fnm"/>
                 <br/>
