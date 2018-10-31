@@ -2,10 +2,10 @@
         $error="";
         require_once 'Connect.php';
 
-        echo "ADD DOCTOR";
+        echo "ADD NURSE";
         
         if (isset($_POST["submit1"])) {
-            //echo  json_encode($_POST);
+            
      
                //check if user exist
      
@@ -16,7 +16,7 @@
             
             if($stmt->rowCount())
             {
-                $error = "Doctor already exists";
+                $error = "Nurse already exists";
             }
             else {
             /*   
@@ -48,16 +48,15 @@
             echo "$_POST[ID] $_POST[dr_type] $_POST[dept]";
             echo "</br>";
            */ 
-            $stmt1 = $DBcon->prepare("insert into doctor(dr_id,dr_type,dept_id) VALUES(:dr_id,:dr_type,:dept)");
+            /*
+            $stmt1 = $DBcon->prepare("insert into nurse(nurse_id) VALUES(:nurse_id)");
            
-            $stmt1->bindparam(':dr_id', $_POST["ID"],PDO::PARAM_STR);
-            $stmt1->bindparam(':dr_type', $_POST["dr_type"],PDO::PARAM_STR);
-            $stmt1->bindparam(':dept', $_POST["dept"],PDO::PARAM_STR);
+            $stmt1->bindparam(':nurse_id', $_POST["ID"],PDO::PARAM_STR);
  
             $stmt1->execute();
+            */
             
-            
-            $target_dir = "docPics/";
+            $target_dir = "nursePics/";
             $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
             
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -107,7 +106,7 @@
                     echo "Sorry, there was an error uploading your file.";
                 }
             }
-             header("location:doctor.php");
+             header("location:nurse.php");
             }
         }
 ?>
@@ -126,9 +125,10 @@
                 <input type="radio" name="gender" value="other"> Other  
                 <br/>
 
+<!--                
                 Department Name : 
                 <select name="dept">
-                    <?php
+ /*                   <?php
                      //require_once 'Connect.php';
 
                      $stmt = $DBcon->prepare("select * from department");
@@ -139,12 +139,11 @@
                     <?php
                     }
                     ?>
+*/
                 </select>
                 
                 <br/>                
-                
-                Doctor Type : <input type="text" name="dr_type"/>
-                <br/>                
+ -->                          
                 
                 Designation : <input type="text" name="designation"/>
                 <br/>
@@ -198,6 +197,5 @@
 </form>
 
 <div> <?php echo $error; ?></div>
-
 
 
