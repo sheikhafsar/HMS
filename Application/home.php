@@ -36,17 +36,7 @@
 
 <body class="animsition">
 <?php
-session_start();  
-   
-   if (!isset($_SESSION["id"]))
-   {
-     header('location:index.php'); 
-   }
-   else 
-   {
-       //echo '</br>';
-       
-   }
+	require('account.php');
 ?>
 
     <div class="page-wrapper">
@@ -93,11 +83,11 @@ session_start();
                             </ul>
                         </li>
                         <li>
-                            <a href="#doctor_details">
+                            <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="#nurse_details">
+                            <a href="insert_nur.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
 						
@@ -233,11 +223,11 @@ session_start();
                             </ul>
                         </li>
                         <li>
-                            <a href="#doctor_details">
+                            <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="#nurse_details">
+                            <a href="insert_nur.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
 						
@@ -262,7 +252,7 @@ session_start();
                                     <div class="au-breadcrumb-left">
                                         <span class="au-breadcrumb-span">You are here:</span>
                                         <ul class="list-unstyled list-inline au-breadcrumb__list">
-                                            <li class="list-inline-item active">
+                                            <li class="list-inline-item">
                                                 <a href="home.php">Home</a>
                                             </li>
                                         </ul>
@@ -282,8 +272,8 @@ session_start();
                         <div class="row">
                             <div class="col-md-6 col-lg-3">
                                 <div class="statistic__item">
-                                    <h2 class="number">10,368</h2>
-                                    <span class="desc">members online</span>
+                                    <h2 class="number">1,368</h2>
+                                    <span class="desc">Patients Online</span>
                                     <div class="icon">
                                         <i class="zmdi zmdi-account-o"></i>
                                     </div>
@@ -291,8 +281,8 @@ session_start();
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <div class="statistic__item">
-                                    <h2 class="number">388,688</h2>
-                                    <span class="desc">items sold</span>
+                                    <h2 class="number">38</h2>
+                                    <span class="desc">Doctors Added</span>
                                     <div class="icon">
                                         <i class="zmdi zmdi-shopping-cart"></i>
                                     </div>
@@ -300,8 +290,8 @@ session_start();
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <div class="statistic__item">
-                                    <h2 class="number">1,086</h2>
-                                    <span class="desc">this week</span>
+                                    <h2 class="number">6</h2>
+                                    <span class="desc">Patients Feedback</span>
                                     <div class="icon">
                                         <i class="zmdi zmdi-calendar-note"></i>
                                     </div>
@@ -309,8 +299,8 @@ session_start();
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <div class="statistic__item">
-                                    <h2 class="number">$1,060,386</h2>
-                                    <span class="desc">total earnings</span>
+                                    <h2 class="number">2,30,300</h2>
+                                    <span class="desc">Earnings</span>
                                     <div class="icon">
                                         <i class="zmdi zmdi-money"></i>
                                     </div>
@@ -334,31 +324,14 @@ session_start();
                                         <div class="chart-info__left">
                                             <div class="chart-note">
                                                 <span class="dot dot--blue"></span>
-                                                <span>products</span>
+                                                <span>OPD Patients</span>
                                             </div>
                                             <div class="chart-note">
                                                 <span class="dot dot--green"></span>
-                                                <span>Services</span>
+                                                <span>IPD Patients</span>
                                             </div>
                                         </div>
-                                        <div class="chart-info-right">
-                                            <div class="rs-select2--dark rs-select2--md m-r-10">
-                                                <select class="js-select2" name="property">
-                                                    <option selected="selected">All Properties</option>
-                                                    <option value="">Products</option>
-                                                    <option value="">Services</option>
-                                                </select>
-                                                <div class="dropDownSelect2"></div>
-                                            </div>
-                                            <div class="rs-select2--dark rs-select2--sm">
-                                                <select class="js-select2 au-select-dark" name="time">
-                                                    <option selected="selected">All Time</option>
-                                                    <option value="">By Month</option>
-                                                    <option value="">By Day</option>
-                                                </select>
-                                                <div class="dropDownSelect2"></div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     <div class="recent-report__chart">
                                         <canvas id="recent-rep2-chart"></canvas>
@@ -369,10 +342,10 @@ session_start();
                             <div class="col-xl-4">
                                 <!-- TASK PROGRESS-->
                                 <div class="task-progress">
-                                    <h3 class="title-3">task progress</h3>
+                                    <h3 class="title-3">Services</h3>
                                     <div class="au-skill-container">
                                         <div class="au-progress">
-                                            <span class="au-progress__title">Web Design</span>
+                                            <span class="au-progress__title">surgeons</span>
                                             <div class="au-progress__bar">
                                                 <div class="au-progress__inner js-progressbar-simple" role="progressbar" data-transitiongoal="90">
                                                     <span class="au-progress__value js-value"></span>

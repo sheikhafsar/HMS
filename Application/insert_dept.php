@@ -36,20 +36,9 @@
 </head>
 
 <body class="animsition">
+
 <?php
-session_start();  
-   
-   if (!isset($_SESSION["id"]))
-   {
-     header('location:index.php'); 
-   }
-   else 
-   {   
-       echo '</br>';
-       
-   }
-?>
-<?php
+		require('account.php');
         $error="";
         require_once 'Connect.php';
 
@@ -101,7 +90,7 @@ session_start();
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Department
                                 <span class="arrow">
@@ -124,7 +113,7 @@ session_start();
                             </ul>
                         </li>
                         <li>
-                            <a href="#doctor_details">
+                            <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
@@ -240,7 +229,7 @@ session_start();
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow">
                                 <i class="fas fa-tachometer-alt"></i>Department
                                 <span class="arrow">
@@ -263,7 +252,7 @@ session_start();
                             </ul>
                         </li>
                         <li>
-                            <a href="#doctor_details">
+                            <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
@@ -283,7 +272,7 @@ session_start();
             <!-- END HEADER DESKTOP-->
 			
 			<!-- BREADCRUMB-->
-            <section class="au-breadcrumb m-t-30">
+            <section class="au-breadcrumb m-t-70">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">

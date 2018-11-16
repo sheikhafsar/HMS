@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -8,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title>Register</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -33,77 +35,55 @@
 
 </head>
 
-<body background="images/background1.jpg" class="animsition" >
-<?php
-    $error="";
-    
- if (isset($_POST["submit"])) {
-     
-     require_once 'Connect.php';
-     
-     $stmt = $DBcon->prepare("select id,username from admin where username=:nm and password=:pwd");
-                $stmt->bindParam(':nm',$_POST["uname"], PDO::PARAM_STR);
-                $stmt->bindParam(':pwd',$_POST["passwd"], PDO::PARAM_STR);
-                $stmt->execute();
-                  
-     $count=$stmt->rowCount();
-   
-    if($count==1)
-    {
-        session_start();
-        foreach ($stmt->fetchAll() as $row) {
-        $_SESSION["id"]=$row["id"];
-        $_SESSION["name"]=$row["username"];
-        
-        header('location:home.php');
-		echo "Helllo";
-     }
-    }
-    else{
-        $error="Your Login Name or Password is invalid";
-    }
- } 
-?>
-		<div class="page-wrapper">
+<body class="animsition">
+<!--php-->
+
+<!--end php-->
+
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <h2>Login</h2>
+                            <a href="#">
+                                <img src="images/icon/logo.png" alt="CoolAdmin">
+                            </a>
                         </div>
                         <div class="login-form">
-                            <form name="login" action="login.php" method="POST">
+                            <form action="" method="post">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input class="au-input au-input--full" type="text" name="uname" placeholder="Username">
+                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="passwd" placeholder="Password">
+                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password" required>
                                 </div>
                                 <div class="login-checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember">Remember Me
-                                    </label>
-                                    <label>
-                                        <a href="#">Forgotten Password?</a>
+                                        <input type="checkbox" name="aggree">Agree the terms and policy
                                     </label>
                                 </div>
-                              <button class="au-btn au-btn--block au-btn--green m-b-20" name="submit" type="submit">sign in</button>
-							</form>
-							<?php echo "$error" ?>
-                            <div class="register-link">
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Register</button>
+                               
+								<div class="register-link">
                                 <p>
-                                    Don't you have account?
-                                    <a href="register.php">Sign Up Here</a>
+                                    Already have account?
+                                    <a href="login.php">Sign In</a>
                                 </p>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-		</div>
-	
+        </div>
+    </div>
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
