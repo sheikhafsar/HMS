@@ -6,13 +6,16 @@
             <file>file:/C:/xampp/htdocs/HMS/Application/receptionist.php</file>
             <file>file:/C:/xampp/htdocs/HMS/Application/doctor.php</file>
             <file>file:/C:/xampp/htdocs/HMS/Application/insert_recep.php</file>
-            <file>file:/C:/xampp/htdocs/HMS/Application/register_1.php</file>
             <file>file:/C:/xampp/htdocs/HMS/Application/nurse.php</file>
-            <file>file:/C:/xampp/htdocs/HMS/Application/register.php</file>
-            <file>file:/C:/xampp/htdocs/HMS/Application/insert_doc.php</file>
             <file>file:/C:/xampp/htdocs/HMS/Application/home.php</file>
             <file>file:/C:/xampp/htdocs/HMS/Application/login.php</file>
             <file>file:/C:/xampp/htdocs/HMS/Application/insert_nurse.php</file>
+            <file>file:/C:/xampp/htdocs/HMS/Application/login_pat.php</file>
+            <file>file:/C:/xampp/htdocs/HMS/Application/pat_dashboard.php</file>
+            <file>file:/C:/xampp/htdocs/HMS/Application/register.php</file>
+            <file>file:/C:/xampp/htdocs/HMS/Application/insert_doc.php</file>
+            <file>file:/C:/xampp/htdocs/HMS/Application/register_pat.php</file>
+            <file>file:/C:/xampp/htdocs/HMS/Application/logout_pat.php</file>
         </group>
     </open-files>
 </project-private>
