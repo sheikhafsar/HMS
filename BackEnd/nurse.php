@@ -11,14 +11,17 @@
        $nurse=$_POST["nurse"];
        
        $count= count($nurse);
-       echo $count;
+       //echo $count;
        
        for ($x = 0; $x < $count; $x++) {
         $stmt = $DBcon->prepare("delete from staff where staff_id=:id");
-        echo $nurse[$x];
-        echo "</br>";
         $stmt->bindparam(':id', $nurse[$x]);
         $stmt->execute();
+        
+        //deletes files
+        $folder="nursePics/";
+        $path=$folder.$nurse[$x].".jpg";
+        unlink($path);
     } 
        
    }

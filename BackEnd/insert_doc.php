@@ -21,11 +21,16 @@
                 $error = "Doctor already exists";
             }
             else {
-            /*   
-                echo "</br>";
-                echo "$_POST[ID] $_POST[phone] $_POST[emailID] $_POST[shift]";
-                echo "</br>";
-             */   
+            
+           /*to check if shift is alloted to nurse */    
+            echo "value= $_POST[shift] ;";
+            if($_POST["shift"]=="")
+            {
+                echo "shift is null";
+                $_POST["shift"]=null;
+                echo "value2= $_POST[shift] ;";
+            } 
+                
             $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
                     . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
             $stmt->bindparam(':id', $docID, PDO::PARAM_STR);
@@ -170,6 +175,7 @@
                 
                 Shift : <br/>
                 <select name="shift">
+                    <option value=""> NULL </option> 
                     <?php
                      //require_once 'Connect.php';
 

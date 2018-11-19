@@ -6,11 +6,11 @@
         
         if (isset($_POST["submit1"])) {
             
-     
+            $recID="REC".$_POST["ID"];
                //check if user exist
      
             $stmt = $DBcon->prepare("select * from staff where staff_id=:ID");
-             $stmt->bindParam(':ID',$_POST["ID"], PDO::PARAM_STR);
+             $stmt->bindParam(':ID',$recID, PDO::PARAM_STR);
              
             $stmt->execute();
             
@@ -23,10 +23,19 @@
                 echo "</br>";
                 echo "$_POST[ID] $_POST[phone] $_POST[emailID] $_POST[shift]";
                 echo "</br>";
-             */   
+             */ 
+            /*to check if shift is alloted to nurse */    
+            echo "value= $_POST[shift] ;";
+            if($_POST["shift"]=="")
+            {
+                echo "shift is null";
+                $_POST["shift"]=null;
+                echo "value2= $_POST[shift] ;";
+            }    
+                
             $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
                     . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
-            $stmt->bindparam(':id', $_POST["ID"], PDO::PARAM_STR);
+            $stmt->bindparam(':id', $recID, PDO::PARAM_STR);
          
             $stmt->bindparam(':fnm', $_POST["fnm"], PDO::PARAM_STR);
             $stmt->bindparam(':lnm', $_POST["lnm"], PDO::PARAM_STR);
@@ -61,7 +70,7 @@
             
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
             
-            $target_file = $target_dir . $_POST["ID"] . ".jpg";
+            $target_file = $target_dir . $recID . ".jpg";
             $uploadOk = 1;
             
 
@@ -106,7 +115,7 @@
                     echo "Sorry, there was an error uploading your file.";
                 }
             }
-             //header("location:receptionist.php");
+             header("location:receptionist.php");
             }
         }
 ?>
@@ -149,6 +158,7 @@
                 
                 Shift : <br/>
                 <select name="shift">
+                    <option value=""> NULL </option> 
                     <?php
                      //require_once 'Connect.php';
 

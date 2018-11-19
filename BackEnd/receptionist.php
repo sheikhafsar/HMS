@@ -11,14 +11,17 @@
        $receptionist=$_POST["receptionist"];
        
        $count= count($receptionist);
-       echo $count;
+       //echo $count;
        
        for ($x = 0; $x < $count; $x++) {
         $stmt = $DBcon->prepare("delete from staff where staff_id=:id");
-        echo $receptionist[$x];
-        echo "</br>";
         $stmt->bindparam(':id', $receptionist[$x]);
         $stmt->execute();
+        
+        //deletes files
+        $folder="receptionistPics/";
+        $path=$folder.$receptionist[$x].".jpg";
+        unlink($path);
     } 
        
    }

@@ -19,6 +19,11 @@
         echo "</br>";
         $stmt->bindparam(':id', $docs[$x]);
         $stmt->execute();
+        
+        //deletes files
+        $folder="docPics/";
+        $path=$folder.$docs[$x].".jpg";
+        unlink($path);
     } 
        
    }
