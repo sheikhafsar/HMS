@@ -3,7 +3,7 @@ session_start();
    
    if (!isset($_SESSION["id"]))
    {
-     header('location:login_pat.php'); 
+     header('location:login_staff.php'); 
    }
    else 
    {
@@ -21,5 +21,7 @@ session_start();
        
 <!--medical history -->
 
-<a href="logout_pat.php">Logout</a>
+<a href="logout_staff.php">Logout</a>
 </br>
+
+
