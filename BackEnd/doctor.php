@@ -7,7 +7,7 @@
         echo "Doctor";
 
    if (isset($_POST["delete"])){
-       //echo "hi";
+       
        $docs=$_POST["docs"];
        
        $count= count($docs);

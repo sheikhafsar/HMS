@@ -1,3 +1,5 @@
+
+
 <?php
     require_once 'Connect.php';
     
@@ -9,7 +11,9 @@
 ?>
 
 <form  name="frm1" action="" method="POST" enctype="multipart/form-data">
-                 Department Name : 
+   
+                
+                Department Name : 
                 <select id="dept_ID" name="dept" onChange="getDoctor(this.value);">
                     <option> NULL</option>
                     <?php
@@ -27,8 +31,18 @@
                 
                 <br/>                
                 
+               <?php 
+                   /*  $selected_dept="<div id=Dept_list> </div>";
+                     $flag="<div id=Dept_list> </div>";
+                     //$flag="";
+                     //$selected_dept=1;
+                     echo "selected_deptId=$selected_dept";
+                    
+                    */
+               ?>
                 
                 
+                <br/>
                 
                 Doctor Name : 
                 <select id="dr_ID" name="dr">
@@ -46,12 +60,27 @@
 </form>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
- 
+ <!--  <script>
+      $("#dept_ID").on("change", function(){
+        var selected_dept = $(this).val();
+        console.log(selected_dept);
+        $("#Dept_list").html(selected_dept); //selected dept id
+        
+        //document.cookie = "jsDept_id ="+selected_dept;
+        //$.ajax({url:"book_appointment.php?selected_dept="+selected_dept,cache:false,success:function(result){
+        //$("#Dept_list").html(result);
+    });
+      
+    </script>
+-->
+
 <script> function getDoctor(val) { $.ajax({
 type: "POST",
 url: "doc_list.php",
 data:'dept_id='+val,
 success: function(data){
     $("#dr_ID").html(data);
+    //console.log(val);
 }
 });} </script>
+
