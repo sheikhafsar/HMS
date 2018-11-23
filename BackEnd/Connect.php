@@ -2,8 +2,8 @@
 <?php
 
 $DB_host = "localhost";
-$DB_user = "afsar";
-$DB_pass = "afsar123";
+$DB_user = "root";
+$DB_pass = "root";
 $DB_name = "hms";
 
  try

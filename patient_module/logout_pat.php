@@ -2,6 +2,6 @@
 
 session_start();     
       session_destroy(); 
-      header('location:login_pat.php');
+      header('location:patient_login.php');
       
 ?>

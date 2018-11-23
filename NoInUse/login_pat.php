@@ -1,3 +1,34 @@
+<?php
+    $error="";
+    
+ if (isset($_POST["submit"])) {
+     
+     require_once 'Connect.php';
+     
+     $stmt = $DBcon->prepare("select * from patient where username=:nm and password=:pwd");
+                $stmt->bindParam(':nm',$_POST["uname"], PDO::PARAM_STR);
+                $stmt->bindParam(':pwd',$_POST["passwd"], PDO::PARAM_STR);
+                $stmt->execute();
+                  
+     $count=$stmt->rowCount();
+   
+    if($count==1)
+    {
+        session_start();
+        foreach ($stmt->fetchAll() as $row) {
+        $_SESSION["id"]=$row["pat_id"];
+        $_SESSION["name"]=$row["first_name"]." ".$row["last_name"];
+        
+        header('location:patient_dashboard.php');
+	
+     }
+    }
+    else{
+        $error="Your Login Name or Password is invalid";
+    }
+ } 
+?>
+
 <html lang="en">
 <head>
     <!-- Required meta tags-->
@@ -34,36 +65,7 @@
 </head>
 
 <body background="images/background1.jpg" class="animsition" >
-<?php
-    $error="";
-    
- if (isset($_POST["submit"])) {
-     
-     require_once 'Connect.php';
-     
-     $stmt = $DBcon->prepare("select * from patient where username=:nm and password=:pwd");
-                $stmt->bindParam(':nm',$_POST["uname"], PDO::PARAM_STR);
-                $stmt->bindParam(':pwd',$_POST["passwd"], PDO::PARAM_STR);
-                $stmt->execute();
-                  
-     $count=$stmt->rowCount();
-   
-    if($count==1)
-    {
-        session_start();
-        foreach ($stmt->fetchAll() as $row) {
-        $_SESSION["id"]=$row["pat_id"];
-        $_SESSION["name"]=$row["first_name"]." ".$row["last_name"];
-        
-        header('location:pat_dashboard.php');
-	
-     }
-    }
-    else{
-        $error="Your Login Name or Password is invalid";
-    }
- } 
-?>
+
 		<div class="page-wrapper">
             <div class="container">
                 <div class="login-wrap">
