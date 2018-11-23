@@ -99,7 +99,7 @@
                         <div class="login-logo">
                                 <h2>Registeration</h2>
                         <div class="login-form" class="col-lg-12">
-                            <form name="login" action="login.php" method="post">
+                            <form name="login" action="register_pat.php" method="post">
                             <!--Name-->
                             <div class="form-group">
                                 <input class="au-input au-input--full" type="text" name="fnm" placeholder="First Name">

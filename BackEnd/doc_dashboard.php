@@ -15,8 +15,10 @@ session_start();
        if($_SESSION["designation"]=="head")
        {
           // echo "head";
-      
-          header('location:head_doc.php');
+           
+           echo "<a href=app_schedule.php?headID=$_SESSION[id]>Consultation Schedule</a>";
+           
+         
            
        }
        else {

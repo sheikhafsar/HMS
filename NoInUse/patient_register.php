@@ -49,7 +49,7 @@
             $stmt->execute();
          
         
-             header("location:login_pat.php");
+             header("location:patient_login.php");
             }
         }
 ?>
@@ -129,7 +129,7 @@
 								<div class="register-link">
                                 <p>
                                     Already have account?
-                                    <a href="login.php">Sign In</a>
+                                    <a href="patient_login.php">Sign In</a>
                                 </p>
                             </div>
                             </form>

@@ -1,6 +1,16 @@
 <?php
     require_once('Connect.php');
-    session_start(); 
+    session_start();  
+   
+   if (!isset($_SESSION["id"]))
+   {
+     header('location:login_pat.php'); 
+   }
+   else 
+   {  
+       //echo "Welcome  $_SESSION[name]";
+       //echo '</br>';  
+   }
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +50,7 @@
 
 </head>
 
-<body background="images/tables1.jpg" class="animsition">
+<body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
         <header class="header-desktop3 d-none d-lg-block">
@@ -61,7 +71,7 @@
                             </li>
 
                             <li>
-                                <a href="pat_app_list.php">
+                                <a href="#">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Appointment</a>
                             </li>
@@ -89,46 +99,7 @@
                                 </ul>
                             </li>
 
-                            <!--<li class="has-sub">
-                                <a href="#">
-                                    <i class="fas fa-desktop"></i>
-                                    <span class="bot-line"></span>UI Elements</a>
-                                <ul class="header3-sub-list list-unstyled">
-                                    <li>
-                                        <a href="button.html">Button</a>
-                                    </li>
-                                    <li>
-                                        <a href="badge.html">Badges</a>
-                                    </li>
-                                    <li>
-                                        <a href="tab.html">Tabs</a>
-                                    </li>
-                                    <li>
-                                        <a href="card.html">Cards</a>
-                                    </li>
-                                    <li>
-                                        <a href="alert.html">Alerts</a>
-                                    </li>
-                                    <li>
-                                        <a href="progress-bar.html">Progress Bars</a>
-                                    </li>
-                                    <li>
-                                        <a href="modal.html">Modals</a>
-                                    </li>
-                                    <li>
-                                        <a href="switch.html">Switchs</a>
-                                    </li>
-                                    <li>
-                                        <a href="grid.html">Grids</a>
-                                    </li>
-                                    <li>
-                                        <a href="fontawesome.html">FontAwesome</a>
-                                    </li>
-                                    <li>
-                                        <a href="typo.html">Typography</a>
-                                    </li>
-                                </ul>
-                            </li>-->
+                            
                             
                         </ul>
                     </div>
@@ -484,7 +455,7 @@
             <section class="au-breadcrumb2">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="au-breadcrumb-content">
                                 <div class="au-breadcrumb-left">
                                     <span class="au-breadcrumb-span">You are here:</span>
@@ -498,13 +469,19 @@
                                         <li class="list-inline-item">Dashboard</li>
                                     </ul>
                                 </div>
+                                <form class="au-form-icon--sm" action="" method="post">
+                                    <input class="au-input--w300 au-input--style2" type="text" placeholder="Search for datas &amp; reports...">
+                                    <button class="au-btn--submit2" type="submit">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             <!-- END BREADCRUMB-->
-          
+
             <!-- WELCOME MESSAGE-->
             <section class="welcome p-t-10">
                 <div class="container">
@@ -518,74 +495,95 @@
                     </div>
                 </div>
             </section>
+            <br>
             <!-- END WELCOME-->
 
             <!-- APPOINTMENT -->
-            <div class="page-wrapper">
             <div class="container">
-                <div class="login-wrap">
-                    <div class="login-content">
-                        <div class="login-logo">
-                            <h2>Book Your Appointment</h2>
-                        </div>
-                        <div class="login-form">
-                            <form name="frm1" action="patient_dashboard.php" method="POST">
-                                <!--DEPARTMENT NAME-->
-                                <div class="au-input--full">
-                                    <label for="select" class=" form-control-label">Department Name</label>
-                                </div>
-                                <!--<div class="col-6 col-md-4">-->
-                                <div class="au-input--full">
-                                    <select name="dept" id="dept_ID" onChange="getDoctor(this.value);" class="form-control">
-                                        <option value="">NULL</option>
-											<?php
-												$stmt = $DBcon->prepare("select * from department");
-												$stmt->execute();
-												foreach ($stmt->fetchAll() as $row) {
-											?>
-                                        <option value=<?php echo $row["dept_id"] ?>><?php echo "$row[dept_name]" ?> </option>
-                                        <?php
-										}
-										?>
-                                    </select>
-                                    <br>
-                                
-                                <!--END DEPT NAME-->
-
-                                <!--DOCTOR NAME-->
-                                <div class="au-input--full">
-                                    <label for="select" class=" form-control-label">Doctor Name</label>
-                                </div>
-                                <div class="au-input--full">
-                                    <select name="dr" id="dr_ID" class="form-control">
-                                        <option>NULL</option>
-									</select>
-                                    <br>
-                                <!--END OF DOCTOR-->
-
-                                <div class="au-input--full">
-                                    <label for="select" class=" form-control-label">Appointment Date</label>
-                                </div>
-                                <div class="au-input--full">
-                                    <!--<script type="text/javascript" src="http://services.iperfect.net/js/IP_generalLib.js"></script>-->
-                                    <input type="date" name="date1" id="date1" alt="date" class="IP_calendar" title="d/m/Y">
-                                </div>
-                                     <br>
-                                </div>
-                                
-                                
-                              <button class="au-btn au-btn--block au-btn--green m-b-20" name="submit" type="submit">sign in</button>
-                            </form>
-                            
-                            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-                           
-							<?php echo "$error" ?>
-                        </div>
-                    </div>
-                </div>
+            <div class="row">
+            <div class="col-md-2">
             </div>
-        </div>
+            <div class="col-md-8">
+                <div class="au-card au-card--no-shadow au-card--no-pad m-b-40 au-card--border">
+                        <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
+                            <div class="bg-overlay bg-overlay--blue"></div>
+                                <h3>
+                                    <i class="zmdi zmdi-account-calendar"></i>22 May, 2018</h3>
+                                        <button class="au-btn-plus">
+                                            <i class="zmdi zmdi-plus"></i>
+                                        </button>
+                            </div>
+                            <div class="au-task js-list-load au-task--border">
+                                <div class="au-task__title">
+                                    <p>Tasks for <?php echo "$_SESSION[name]" ?></p>
+                                </div>
+                                <div class="au-task-list js-scrollbar3">
+                                    <div class="au-task__item au-task__item--danger">
+                                        <div class="au-task__item-inner">
+                                            <h5 class="task">
+                                                <a href="#">Meeting about plan for Admin Template 2018</a>
+                                            </h5>
+                                            <span class="time">10:00 AM</span>
+                                        </div>
+                                    </div>
+                                            
+                                    <div class="au-task__item au-task__item--warning">
+                                        <div class="au-task__item-inner">
+                                            <h5 class="task">
+                                                <a href="#">Create new task for Dashboard</a>
+                                            </h5>
+                                            <span class="time">11:00 AM</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="au-task__item au-task__item--primary">
+                                        <div class="au-task__item-inner">
+                                            <h5 class="task">
+                                                <a href="#">Meeting about plan for Admin Template 2018</a>
+                                            </h5>
+                                            <span class="time">02:00 PM</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="au-task__item au-task__item--success">
+                                        <div class="au-task__item-inner">
+                                            <h5 class="task">
+                                                <a href="#">Create new task for Dashboard</a>
+                                            </h5>
+                                            <span class="time">03:30 PM</span>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="au-task__item au-task__item--danger js-load-item">
+                                        <div class="au-task__item-inner">
+                                            <h5 class="task">
+                                                <a href="#">Meeting about plan for Admin Template 2018</a>
+                                            </h5>
+                                            <span class="time">10:00 AM</span>
+                                        </div>
+                                    </div>
+                
+                                    <div class="au-task__item au-task__item--warning js-load-item">
+                                        <div class="au-task__item-inner">
+                                            <h5 class="task">
+                                                <a href="#">Create new task for Dashboard</a>
+                                            </h5>
+                                            <span class="time">11:00 AM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                                
+                                <div class="au-task__footer">
+                                    <button class="au-btn au-btn-load js-load-btn">load more</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>             
             <!-- END APPOINTMENT -->
+
+            
 
             <!-- COPYRIGHT-->
             <section class="p-t-60 p-b-20">
@@ -604,17 +602,6 @@
 
     </div>
 
-    <!--To get Doctor Name-->
-    <script> 
-        function getDoctor(val) { $.ajax({
-        type: "POST",
-        url: "doc_list.php",
-        data:'dept_id='+val,
-        success: function(data){
-            $("#dr_ID").html(data);
-        }
-        });} 
-    </script>
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
