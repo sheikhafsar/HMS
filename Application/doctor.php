@@ -1,3 +1,32 @@
+<?php
+	
+		require_once 'Connect.php';
+		require('account.php');
+		//echo "Doctor";
+		
+		require('insertDrBE.php');
+		$error="";
+        
+        //echo "Doctor";
+
+   if (isset($_POST["delete"])){
+       //echo "hi";
+       $docs=$_POST["docs"];
+       
+       $count= count($docs);
+       echo $count;
+       
+       for ($x = 0; $x < $count; $x++) {
+        $stmt = $DBcon->prepare("delete from staff where staff_id=:id");
+        echo $docs[$x];
+        echo "</br>";
+        $stmt->bindparam(':id', $docs[$x]);
+        $stmt->execute();
+    } 
+     header('location:doctor.php');  
+   }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,34 +64,7 @@
 </head>
 
 <body class="animsition">
-<?php
-	
-		require_once 'Connect.php';
-		require('account.php');
-		echo "Doctor";
-		
-		require('insertDrBE.php');
-		$error="";
-        
-        echo "Doctor";
 
-   if (isset($_POST["delete"])){
-       //echo "hi";
-       $docs=$_POST["docs"];
-       
-       $count= count($docs);
-       echo $count;
-       
-       for ($x = 0; $x < $count; $x++) {
-        $stmt = $DBcon->prepare("delete from staff where staff_id=:id");
-        echo $docs[$x];
-        echo "</br>";
-        $stmt->bindparam(':id', $docs[$x]);
-        $stmt->execute();
-    } 
-     header('location:doctor.php');  
-   }
-?>
  <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
@@ -85,38 +87,21 @@
                             </a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="department.php">
                                 <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="active">
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="insert_nur.php">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
 						
                         <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>
@@ -225,38 +210,21 @@
                             </a>
                         </li>
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="department.php">
                                 <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="active">
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="insert_nur.php">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
 						
                         <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>
@@ -301,7 +269,7 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="row">
-                            <div class="col-xl-12">
+                                <div class="col-xl-12">
                                 <!-- DATA TABLE -->
 								<br>
                                 <div class="table-data__tool">
@@ -319,16 +287,9 @@
 									</div>
                                 </div>
                                 <div class="table-responsive table-responsive-data2">
-								 
-                                    <table class="table table-data2">
+								    <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <!--<th>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </th>-->
 												<th></th>
                                                 <th>Doc_id</th>
                                                 <th>Name</th>
@@ -350,8 +311,7 @@
 												</td>
                                                 <td><?php echo $row["dr_id"];?></td>
                                                 <td>
-                                                    <!--<span class="block-email">lori@example.com</span>-->
-													<?php
+                                                    <?php
 														echo $row["first_name"];
 														echo " ";
 														echo $row["last_name"];
@@ -367,9 +327,7 @@
 														<button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                                             <i class="zmdi zmdi-edit"></i>
                                                         </button>
-                                                        <!--<button class="item" data-toggle="tooltip" data-placement="top" name="delete" title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>-->
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>
@@ -391,13 +349,13 @@
             </section>
 			<!-- END OF TABLE-->
 			
-			
+			<!--Footer-->
             <section>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                <p>©2018,HMS. All Rights Reserved.</p>
                             </div>
                         </div>
                     </div>

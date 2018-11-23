@@ -1,54 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-
-    <!-- Title Page-->
-    <title>Admin Dashboard</title>
-
-    <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
-
-</head>
-
-<body class="animsition">
-
 <?php
 		require('account.php');
         require_once 'Connect.php';
 		
         $error="";
 		
-        echo "ADD DOCTOR";
+        //echo "ADD DOCTOR";
         
         if (isset($_POST["submit"])) {
-            /*echo  json_encode($_POST);
-			check if user exist*/
-			
+            
 			$docID="DOC".$_POST["ID"];
 			
             $stmt = $DBcon->prepare("select * from staff where staff_id=:ID");
@@ -61,11 +20,15 @@
                 $error = "Doctor already exists";
             }
             else {
-            /*   
-                echo "</br>";
-                echo "$_POST[ID] $_POST[phone] $_POST[emailID] $_POST[shift]";
-                echo "</br>";
-             */   
+            /*to check if shift is alloted to nurse */    
+                echo "value= $_POST[shift] ;";
+                if($_POST["shift"]=="")
+                {
+                    echo "shift is null";
+                    $_POST["shift"]=null;
+                    echo "value2= $_POST[shift] ;";
+                } 
+
             $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
                     . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
             $stmt->bindparam(':id',$docID, PDO::PARAM_STR);
@@ -113,7 +76,7 @@
             echo "<br/><br/>";
 
             
-            $check = POSTimagesize($_FILES["fileToUpload"]["tmp_name"]);
+            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
             if($check !== false) {
                 echo "File is an image - " . $check["mime"] . ".";
                 $uploadOk = 1;
@@ -153,14 +116,50 @@
             }
         }
 ?>
-	
-	 <div class="page-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Admin Dashboard</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/theme.css" rel="stylesheet" media="all">
+
+</head>
+
+<body class="animsition">
+     <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
             <div class="menu-sidebar2__content js-scrollbar1">
                 <div class="account2">
                     <div class="image img-cir img-120">
-                        <!--<img src="images/icon/avatar-big-01.jpg" alt="John Doe" />-->
 						<?php 
 							echo "<img src=adminPics/$_SESSION[name].jpg  alt=$_SESSION[name] />";
 						?>
@@ -176,38 +175,21 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li class="active has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="active">
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li>
+                            <a class="js-arrow" href="department">
+                                <i class="fas fa-tachometer-alt"></i>Department
+                            </a>
+                        </li>
+                        <li class="active">
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="#nurse_details">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
                         <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>  
@@ -315,39 +297,22 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li class="active has-sub">
-                            <a class="js-arrow">
-                                <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li>
+                            <a class="js-arrow" href="department.php">
+                                <i class="fas fa-tachometer-alt"></i>Department
+                            </a>
+                        </li>
+                        <li class="active">
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="#nurse_details">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
 						
                         <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>
@@ -391,7 +356,8 @@
                 </div>
             </section>
             <!-- END BREADCRUMB-->
-			<br>
+            <br>
+            <!--Actual working portion-->
 			<section>
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
@@ -423,7 +389,7 @@
                                                 </div>
                                                 <div class="col-6 col-md-4">
                                                     <select name="shift" id="shift" class="form-control">
-                                                        <option value="">Select</option>
+                                                        <option value="">NULL</option>
 														<?php
 															$stmt = $DBcon->prepare("select * from shift");
 															$stmt->execute();
@@ -576,7 +542,7 @@
                                                     <label for="file-input" class=" form-control-label">File input</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="file" id="fileToupload" name="fileToupload" class="form-control-file">
+                                                    <input type="file" id="fileToUpload" name="fileToUpload" class="form-control-file">
                                                 </div>
                                             </div>
 											
@@ -593,13 +559,14 @@
                     </div>
                 </div>
             </section>
-			
+            
+            <!--Footer-->
 			<section>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                <p>©2018,HMS. All Rights Reserved.</p>
                             </div>
                         </div>
                     </div>

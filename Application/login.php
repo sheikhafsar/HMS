@@ -1,3 +1,33 @@
+<?php
+    $error="";
+    
+ if (isset($_POST["submit"])) {
+     
+     require_once 'Connect.php';
+     
+     $stmt = $DBcon->prepare("select id,username from admin where username=:nm and password=:pwd");
+                $stmt->bindParam(':nm',$_POST["uname"], PDO::PARAM_STR);
+                $stmt->bindParam(':pwd',$_POST["passwd"], PDO::PARAM_STR);
+                $stmt->execute();
+                  
+     $count=$stmt->rowCount();
+   
+    if($count==1)
+    {
+        session_start();
+        foreach ($stmt->fetchAll() as $row) {
+        $_SESSION["id"]=$row["id"];
+        $_SESSION["name"]=$row["username"];
+        
+        header('location:home.php');
+		//echo "Hello";
+     }
+    }
+    else{
+        $error="Your Login Name or Password is invalid";
+    }
+ } 
+?>
 <html lang="en">
 <head>
     <!-- Required meta tags-->
@@ -33,37 +63,8 @@
 
 </head>
 
-<body background="images/background1.jpg" class="animsition" >
-<?php
-    $error="";
-    
- if (isset($_POST["submit"])) {
-     
-     require_once 'Connect.php';
-     
-     $stmt = $DBcon->prepare("select id,username from admin where username=:nm and password=:pwd");
-                $stmt->bindParam(':nm',$_POST["uname"], PDO::PARAM_STR);
-                $stmt->bindParam(':pwd',$_POST["passwd"], PDO::PARAM_STR);
-                $stmt->execute();
-                  
-     $count=$stmt->rowCount();
-   
-    if($count==1)
-    {
-        session_start();
-        foreach ($stmt->fetchAll() as $row) {
-        $_SESSION["id"]=$row["id"];
-        $_SESSION["name"]=$row["username"];
-        
-        header('location:home.php');
-		echo "Hello";
-     }
-    }
-    else{
-        $error="Your Login Name or Password is invalid";
-    }
- } 
-?>
+<body background="images/bg15.jpg" class="animsition" >
+
 		<div class="page-wrapper">
             <div class="container">
                 <div class="login-wrap">

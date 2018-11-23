@@ -1,3 +1,123 @@
+<?php
+        $error="";
+        require_once 'Connect.php';
+		require('account.php');
+       // echo "ADD NURSE";
+        
+        if (isset($_POST["submit"])) {
+            
+            $nurseID="NUR".$_POST["ID"];
+     
+               //check if user exist
+            
+            $stmt = $DBcon->prepare("select * from staff where staff_id=:ID");
+             $stmt->bindParam(':ID',$nurseID, PDO::PARAM_STR);
+             
+            $stmt->execute();
+            
+            if($stmt->rowCount())
+            {
+                $error = "Nurse already exists";
+            }
+            else {
+                
+            /*to check if shift is alloted to nurse */    
+            echo "value= $_POST[shift] ;";
+            if($_POST["shift"]=="")
+            {
+                echo "shift is null";
+                $_POST["shift"]=null;
+                echo "value2= $_POST[shift] ;";
+            }
+            
+            $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
+                    . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
+            $stmt->bindparam(':id', $nurseID, PDO::PARAM_STR);
+         
+            $stmt->bindparam(':fnm', $_POST["fnm"], PDO::PARAM_STR);
+            $stmt->bindparam(':lnm', $_POST["lnm"], PDO::PARAM_STR);
+            $stmt->bindparam(':sex', $_POST["gender"], PDO::PARAM_STR);
+            $stmt->bindparam(':designation', $_POST["designation"], PDO::PARAM_STR);
+            $stmt->bindparam(':salary', $_POST["salary"], PDO::PARAM_STR);
+            $stmt->bindparam(':phone', $_POST["phone"], PDO::PARAM_STR);
+            $stmt->bindparam(':emailID', $_POST["emailID"], PDO::PARAM_STR);
+            $stmt->bindparam(':address', $_POST["address"], PDO::PARAM_STR);
+            $stmt->bindparam(':bday', $_POST["bday"], PDO::PARAM_STR);
+            //$stmt->bindparam(':dept', $_POST["dept"], PDO::PARAM_STR);
+            $stmt->bindparam(':shift', $_POST["shift"], PDO::PARAM_STR);
+            $stmt->bindparam(':unm', $_POST["unm"], PDO::PARAM_STR);
+            $stmt->bindparam(':pwd', $_POST["pwd"], PDO::PARAM_STR);
+
+            $stmt->execute();
+            
+           /* 
+            echo "</br>";
+            echo "$_POST[ID] $_POST[dr_type] $_POST[dept]";
+            echo "</br>";
+           */ 
+            /*
+            $stmt1 = $DBcon->prepare("insert into nurse(nurse_id) VALUES(:nurse_id)");
+           
+            $stmt1->bindparam(':nurse_id', $_POST["ID"],PDO::PARAM_STR);
+ 
+            $stmt1->execute();
+            */
+            
+            $target_dir = "nursePics/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            
+            $target_file = $target_dir . $nurseID . ".jpg";
+            $uploadOk = 1;
+            
+
+            echo "<br/><br/>";
+            echo $imageFileType;
+            echo "<br/><br/>";
+
+            
+            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+            if($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+            
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+            // Check file size
+            if ($_FILES["fileToUpload"]["size"] > 500000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+            // Allow certain file formats
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
+             header("location:nurse.php");
+            }
+        }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,121 +157,6 @@
 
 <body class="animsition">
 
-<?php
-		require('account.php');
-        require_once 'Connect.php';
-		
-        $error="";
-		
-        echo "ADD NURSE";
-        
-        if (isset($_POST["submit"])) {
-            $nurID="NUR".$_POST["ID"];
-     
-               //check if user exist
-     
-            $stmt = $DBcon->prepare("select * from staff where staff_id=:ID");
-             $stmt->bindParam(':ID',$nurID, PDO::PARAM_STR);
-             
-            $stmt->execute();
-            
-            if($stmt->rowCount())
-            {
-                $error = "Nurse already exists";
-            }
-            else {
-            /*   
-                echo "</br>";
-                echo "$_POST[ID] $_POST[phone] $_POST[emailID] $_POST[shift]";
-                echo "</br>";
-             */   
-            $stmt = $DBcon->prepare("insert into staff(staff_id,first_name,last_name,gender,designation,salary,phone,email,address,DOB,shift_id,username,password) "
-                    . "VALUES(:id,:fnm,:lnm,:sex,:designation,:salary,:phone,:emailID,:address,:bday,:shift,:unm,:pwd)");
-            $stmt->bindparam(':id', $nurID, PDO::PARAM_STR);
-         
-            $stmt->bindparam(':fnm', $_POST["fnm"], PDO::PARAM_STR);
-            $stmt->bindparam(':lnm', $_POST["lnm"], PDO::PARAM_STR);
-            $stmt->bindparam(':sex', $_POST["gender"], PDO::PARAM_STR);
-            $stmt->bindparam(':designation', $_POST["designation"], PDO::PARAM_STR);
-            $stmt->bindparam(':salary', $_POST["salary"], PDO::PARAM_STR);
-            $stmt->bindparam(':phone', $_POST["phone"], PDO::PARAM_STR);
-            $stmt->bindparam(':emailID', $_POST["emailID"], PDO::PARAM_STR);
-            $stmt->bindparam(':address', $_POST["address"], PDO::PARAM_STR);
-            $stmt->bindparam(':bday', $_POST["bday"], PDO::PARAM_STR);
-            //$stmt->bindparam(':dept', $_POST["dept"], PDO::PARAM_STR);
-            $stmt->bindparam(':shift', $_POST["shift"], PDO::PARAM_STR);
-            $stmt->bindparam(':unm', $_POST["unm"], PDO::PARAM_STR);
-            $stmt->bindparam(':pwd', $_POST["pwd"], PDO::PARAM_STR);
-
-            $stmt->execute();
-           /* 
-            echo "</br>";
-            echo "$_POST[ID] $_POST[dr_type] $_POST[dept]";
-            echo "</br>";
-           */ 
-            /*
-            $stmt1 = $DBcon->prepare("insert into nurse(nurse_id) VALUES(:nurse_id)");
-           
-            $stmt1->bindparam(':nurse_id', $_POST["ID"],PDO::PARAM_STR);
- 
-            $stmt1->execute();
-            */
-            
-            $tarPOST_dir = "nursePics/";
-            $tarPOST_file = $tarPOST_dir . basename($_FILES["fileToUpload"]["name"]);
-            
-            $imageFileType = strtolower(pathinfo($tarPOST_file,PATHINFO_EXTENSION));
-            
-            $tarPOST_file = $tarPOST_dir . $nurID . ".jpg";
-            $uploadOk = 1;
-            
-
-            echo "<br/><br/>";
-            echo $imageFileType;
-            echo "<br/><br/>";
-
-            
-            $check = POSTimagesize($_FILES["fileToUpload"]["tmp_name"]);
-            if($check !== false) {
-                echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
-            } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
-            }
-            
-            // Check if file already exists
-            if (file_exists($tarPOST_file)) {
-                echo "Sorry, file already exists.";
-                $uploadOk = 0;
-            }
-            // Check file size
-            if ($_FILES["fileToUpload"]["size"] > 500000) {
-                echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-            }
-            // Allow certain file formats
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif" ) {
-                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                $uploadOk = 0;
-            }
-            // Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
-            // if everything is ok, try to upload file
-            } else {
-                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $tarPOST_file)) {
-                    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
-                }
-            }
-             header("location:insert_nur.php");
-            }
-        }
-?>
-	
 	 <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
@@ -174,38 +179,21 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li class="active has-sub">
-                            <a class="js-arrow" href="#">
+                        <li>
+                            <a class="js-arrow" href="department.php">
                                 <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="active">
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
-                        <li>
-                            <a href="insert_nur.php">
+                        <li  class="active">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
                         <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>  
@@ -313,39 +301,17 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li class="active has-sub">
-                            <a class="js-arrow">
-                                <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li>
-                            <a href="Nurse.php">
+                            <a class="js-arrow" href="department.php"> 
+                                <i class="fas fa-tachometer-alt"></i>Department
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="nurse.php">
                                 <i class="fas fa-chart-bar"></i>Nurse</a>
                         </li>
                         <li>
-                            <a href="insert_nur.php">
-                                <i class="fas fa-shopping-basket"></i>Nurse</a>
-                        </li>
-						
-                        <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>
@@ -372,13 +338,13 @@
                                                 <span>/</span>
                                             </li>
                                             <li class="list-inline-item">
-												<a href="Nurse.php">Nurse</a>
+												<a href="nurse.php">Nurse</a>
 											</li>
 											<li class="list-inline-item seprate">
                                                 <span>/</span>
                                             </li>
 											<li class="list-inline-item">
-												<a href="insert_dept.php">Add Nurse</a>
+												<a href="insert_nur.php">Add Nurse</a>
 											</li>
                                         </ul>
                                     </div>
@@ -389,7 +355,9 @@
                 </div>
             </section>
             <!-- END BREADCRUMB-->
-			<br>
+            <br>
+            
+            <!-- Working portion -->
 			<section>
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
@@ -421,7 +389,7 @@
                                                 </div>
                                                 <div class="col-6 col-md-4">
                                                     <select name="shift" id="shift" class="form-control">
-                                                        <option value="">Select</option>
+                                                        <option value="">NULL</option>
 														<?php
 															$stmt = $DBcon->prepare("select * from shift");
 															$stmt->execute();
@@ -574,7 +542,7 @@
                                                     <label for="file-input" class=" form-control-label">File input</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="file" id="fileToupload" name="fileToupload" class="form-control-file">
+                                                    <input type="file" id="fileToUpload" name="fileToUpload" class="form-control-file">
                                                 </div>
                                             </div>
 											
@@ -591,13 +559,14 @@
                     </div>
                 </div>
             </section>
-			
+            
+            <!--Footer-->
 			<section>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                <p>©2018,HMS. All Rights Reserved.</p>
                             </div>
                         </div>
                     </div>

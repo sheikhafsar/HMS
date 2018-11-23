@@ -1,3 +1,34 @@
+<?php
+		require('account.php');
+        $error="";
+        require_once 'Connect.php';
+
+        //echo "ADD DEPARTMENT";
+        
+        if (isset($_POST["submit"])) {
+            
+            $stmt = $DBcon->prepare("select * from department where dept_name=:dnm");
+             $stmt->bindParam(':dnm',$_POST["dnm"], PDO::PARAM_STR);
+             
+            $stmt->execute();
+            
+            if($stmt->rowCount())
+            {	
+                $error = "Department already exists";
+            }
+            else {
+                
+            $stmt = $DBcon->prepare("insert into department(dept_name) VALUES(:n)");
+           
+            $stmt->bindparam(':n', $_POST["dnm"]);
+ 
+            $stmt->execute();
+            
+             header("location:department.php");
+            }
+        }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,37 +67,6 @@
 </head>
 
 <body class="animsition">
-
-<?php
-		require('account.php');
-        $error="";
-        require_once 'Connect.php';
-
-        echo "ADD DEPARTMENT";
-        
-        if (isset($_POST["submit"])) {
-            
-            $stmt = $DBcon->prepare("select * from department where dept_name=:dnm");
-             $stmt->bindParam(':dnm',$_POST["dnm"], PDO::PARAM_STR);
-             
-            $stmt->execute();
-            
-            if($stmt->rowCount())
-            {	
-                $error = "Department already exists";
-            }
-            else {
-                
-            $stmt = $DBcon->prepare("insert into department(dept_name) VALUES(:n)");
-           
-            $stmt->bindparam(':n', $_POST["dnm"]);
- 
-            $stmt->execute();
-            
-             header("location:insert_dept.php");
-            }
-        }
-?>
 	
 	 <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
@@ -91,37 +91,20 @@
                             </a>
                         </li>
                         <li class="active has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="department.php">
                                 <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="active">
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="#nurse_details">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
                         <li>
-                            <a href="rec_details">
+                            <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>  
@@ -230,38 +213,21 @@
                             </a>
                         </li>
                         <li class="active has-sub">
-                            <a class="js-arrow">
+                            <a class="js-arrow" href="department.php">
                                 <i class="fas fa-tachometer-alt"></i>Department
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="insert_dept.php">
-                                        <i class="fas fa-tachometer-alt"></i>Add Department</a>
-                                </li>
-                                <li>
-                                    <a href="##">
-                                        <i class="fas fa-tachometer-alt"></i>Delete Dapartment</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-tachometer-alt"></i>Update Department</a>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <a href="doctor.php">
                                 <i class="fas fa-chart-bar"></i>Doctor</a>
                         </li>
                         <li>
-                            <a href="#nurse_details">
+                            <a href="nurse.php">
                                 <i class="fas fa-shopping-basket"></i>Nurse</a>
                         </li>
 						
                         <li>
-                            <a href="rec_details">
+                        <a href="reception.php">
                                 <i class="fas fa-copy"></i>Receptionist
                             </a>
                         </li>
@@ -288,7 +254,7 @@
                                                 <span>/</span>
                                             </li>
                                             <li class="list-inline-item">
-												<a href="#">Department</a>
+												<a href="department.php">Department</a>
 											</li>
 											<li class="list-inline-item seprate">
                                                 <span>/</span>
@@ -346,7 +312,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            <p>©2018,HMS. All Rights Reserved.</p>
                             </div>
                         </div>
                     </div>
