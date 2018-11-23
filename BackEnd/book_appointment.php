@@ -74,6 +74,7 @@ url: "doc_list.php",
 data:'dept_id='+val,
 success: function(data){
     $("#dr_ID").html(data);
+    //console.log(val);
 }
 });} </script>
 
