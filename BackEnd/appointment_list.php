@@ -4,8 +4,12 @@
 
     require_once 'Connect.php';
     echo "Appointment";
+    
+    session_start();   
+    $pat_id=$_SESSION["id"];
 
-    $stmt = $DBcon->prepare("select * from appointment NATURAL JOIN patient");
+    $stmt = $DBcon->prepare("select * from appointment NATURAL JOIN patient where pat_id=:pat_id");
+    $stmt->bindparam(':pat_id', $pat_id, PDO::PARAM_STR);
     $stmt->execute();
     
     

@@ -2,6 +2,12 @@
 
 <?php
     require_once 'Connect.php';
+    
+    session_start(); 
+    
+    if (isset($_POST["submit"])){
+        
+    }
 ?>
 
 <form  name="frm1" action="" method="POST" enctype="multipart/form-data">
@@ -50,7 +56,7 @@
                     
                 <br/>
                 
-                <input type="submit" name="submit"/>
+                <input type="submit" name="submit" value="Book Appoinment"/>
 </form>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
