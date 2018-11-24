@@ -20,11 +20,11 @@
        
        $count= count($docs);
        
-       echo "count:$count";
+       //echo "count:$count";
         echo "<br/>";
         
       //  echo "docs:$docs";
-      print_r($docs);
+     // print_r($docs);
      
    /*   echo "<br/>";
       for ($x = 0; $x < $count; $x++) {
