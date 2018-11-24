@@ -7,7 +7,37 @@ $(function() {
    $('#txtDate').datepicker({ beforeShowDay:
     function(dt)
     {
-       return [dt.getDay() == 4 || dt.getDay() == 3 ? false : true];
+    //console.log(dt)
+    var mon = "Tuesday"
+    var val = 0
+    switch(mon){
+    	case "Sunday":
+      	val = 0
+        break;
+       case "Monday":
+       val = 1;
+       break;
+       case "Tuesday":
+       val = 2;
+       break;
+       case "Wednesday":
+       val = 3;
+       break;
+       case "Thursday":
+       val = 4;
+       break;
+       case "Friday":
+       val = 5;
+       break;
+       case "Saturday":
+       val = 6;
+       break;
+       default:
+       break;
+    }
+    
+    //console.log(date)
+       return [dt.getDay() == val  ? true : false];
     }
  });
 });
