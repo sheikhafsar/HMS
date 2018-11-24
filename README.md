@@ -42,3 +42,4 @@ $(function() {
  });
 });
 ```
+# Checkout this [fiddle](http://jsfiddle.net/Pt2Mr/1254/) for the execution of the above code
