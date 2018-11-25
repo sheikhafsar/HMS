@@ -20,13 +20,13 @@ session_start();
            
        }
        else {
-           echo "assistant";
+           //echo "assistant";
        }
        
    }
 ?>
 <!--appoinment -->
-       <a href="appointment_list.php">Appoinment</a>
+       <a href="doc_appointment_list.php">Appoinment</a>
        
        
 <!--medical history -->
