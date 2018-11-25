@@ -14,10 +14,10 @@ function disableSpecificDaysAndWeekends(date) {
     var y = date.getFullYear();
     var day = date.getDay();
     
-    //console.log("day: "+day);
+    //console.log("day: "+day);                || day!=dayEnabled
 
     for (var i = 0; i < disabledSpecificDays.length; i++) {
-        if ($.inArray((m + 1) + '-' + d + '-' + y, disabledSpecificDays) != -1 || new Date() > date) {
+        if ($.inArray((m + 1) + '-' + d + '-' + y, disabledSpecificDays) != -1 || new Date() > date ) {
             return [false];
         }
     }
@@ -25,6 +25,8 @@ function disableSpecificDaysAndWeekends(date) {
     var noWeekend = $.datepicker.noWeekends(date);
     return !noWeekend[0] ? noWeekend : [true];
 }
+
+
 
 
 /** init datepicker 

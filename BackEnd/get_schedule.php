@@ -1,6 +1,6 @@
 <?php
     require_once 'Connect.php';
-    echo "doctor selected";
+    //echo "doctor selected";
     if(isset($_POST["doc_id"]))
     {
                     
@@ -13,11 +13,21 @@
     //echo "<option>count:".$count."</option>";
     
     foreach ($stmt->fetchAll() as $row) {
-    echo "$row[day] $row[Time]";
-    $day=$row["day"];
-    echo "<br/>";
+        //echo "$row[day] $row[Time]";
+        $day=$row["day"];
+        $time=$row["Time"];
+        $doc=$row["dr_id"];
+        $result[]=array(
+            "day"=> $day,
+            "time"=>$time,
+            "doc"=>$doc
+            );
+      
     }
     
+  //  $result = $stmt->fetchAll();
+   // print_r($result);
+    echo json_encode($result);
     }
    
 ?>
