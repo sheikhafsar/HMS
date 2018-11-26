@@ -70,7 +70,7 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <h2>Login</h2>
+                            <h2>HMS</h2>
                         </div>
                         <div class="login-form">
                             <form name="login" action="login.php" method="POST">
@@ -93,12 +93,6 @@
                               <button class="au-btn au-btn--block au-btn--green m-b-20" name="submit" type="submit">sign in</button>
 							</form>
 							<?php echo "$error" ?>
-                            <div class="register-link">
-                                <p>
-                                    Don't you have account?
-                                    <a href="register.php">Sign Up Here</a>
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>

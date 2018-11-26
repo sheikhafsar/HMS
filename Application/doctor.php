@@ -262,6 +262,7 @@
                 </div>
             </section>
             <!-- END BREADCRUMB-->
+            
 			<!-- START OF TABLE-->
 			<section>
                 <div class="section__content section__content--p70">
@@ -279,7 +280,7 @@
                                     <div class="table-data__tool-right">
 									<form name="delete" action="doctor.php" method="POST">
                                         <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                            <i class="zmdi zmdi-plus"></i><a href="insert_dr.php">add Doctor</a>
+                                            <i class="zmdi zmdi-plus"></i><a href="book_appointment.php">add Doctor</a>
 										</button>
 										<button type="submit" name="delete" class="au-btn au-btn-icon au-btn--green au-btn--small">
                                             <i class="zmdi zmdi-plus"></i>Delete Doctor

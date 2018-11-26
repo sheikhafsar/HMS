@@ -19,7 +19,7 @@
         $_SESSION["id"]=$row["pat_id"];
         $_SESSION["name"]=$row["first_name"]." ".$row["last_name"];
         
-        header('location:patient_dashboard.php');
+        header('location:book_appointment.php');
 	
      }
     }
